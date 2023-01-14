@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="CopacWeb" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdlns="CopacWeb" name="WSSocDeu" targetNamespace="CopacWeb" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="CopacWeb">
+      <xsd:element name="WSSocDeu.Execute">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Wsusucod" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Passsinencriptar" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Socdoc" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WSSocDeu.ExecuteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="Xmldelsdtdeudas" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Xmldelsdtimportesaingresar" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldocapitalsinvencer" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldointeresessinvencer" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Deudacuotsocsinven" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldototalsinvencer" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldocapitalvencido" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldointeresvencidos" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldomora" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Deudacuotsocven" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Saldototalvencido" type="xsd:double" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Usuariovalido" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Tienepermiso" type="xsd:boolean" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="Mensajeerror" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="WSSocDeu.ExecuteSoapIn">
+    <part name="parameters" element="wsdlns:WSSocDeu.Execute" />
+  </message>
+  <message name="WSSocDeu.ExecuteSoapOut">
+    <part name="parameters" element="wsdlns:WSSocDeu.ExecuteResponse" />
+  </message>
+  <portType name="WSSocDeuSoapPort">
+    <operation name="Execute">
+      <input message="wsdlns:WSSocDeu.ExecuteSoapIn" />
+      <output message="wsdlns:WSSocDeu.ExecuteSoapOut" />
+    </operation>
+  </portType>
+  <binding name="WSSocDeuSoapBinding" type="wsdlns:WSSocDeuSoapPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Execute">
+      <soap:operation soapAction="CopacWebaction/AWSSOCDEU.Execute" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WSSocDeu">
+    <port name="WSSocDeuSoapPort" binding="wsdlns:WSSocDeuSoapBinding">
+      <soap:address location="https://serviciosweb.copac.com.uy/wsmicrocoop/servlet/awssocdeu" />
+    </port>
+  </service>
+</definitions>
